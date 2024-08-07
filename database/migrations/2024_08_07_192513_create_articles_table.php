@@ -18,6 +18,7 @@ return new class extends Migration
       $table->string('title');
       $table->text('body');
       $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+      $table->date('publication_date');
       $table->timestamps();
     });
   }

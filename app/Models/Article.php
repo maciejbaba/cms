@@ -16,6 +16,8 @@ class Article extends Model
 
   protected $fillable = ['title', 'body', 'user_id'];
 
+  const CREATED_AT = 'publication_date';
+
   public function author(): BelongsTo
   {
     return $this->belongsTo(User::class);

@@ -41,6 +41,8 @@ class ArticleResource extends Resource
     return $table
       ->columns([
         TextColumn::make('title'),
+        TextColumn::make('body'),
+        TextColumn::make('publication_date'),
       ])
       ->filters([
         //
