@@ -34,7 +34,7 @@ class ArticleResource extends Resource
         Section::make()->schema([
           TextInput::make('title')->required()->minLength(2),
           RichEditor::make('body')->required(),
-          Hidden::make('user_id')->dehydrateStateUsing(fn ($state) => Auth::id()) // need to get user_id for the record creation so get from auth
+          Hidden::make('user_id')->dehydrateStateUsing(fn($state) => Auth::id()) // need to get user_id for the record creation so get it from auth
         ])
       ]);
   }

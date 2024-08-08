@@ -17,6 +17,7 @@ class Article extends Model
   protected $fillable = ['title', 'body', 'user_id'];
 
   const CREATED_AT = 'publication_date';
+  const USER_ID = 'author_id';
 
   public function author(): BelongsTo
   {
