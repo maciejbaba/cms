@@ -3,10 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ArticleResource\Pages;
-use App\Filament\Resources\ArticleResource\RelationManagers;
 use App\Models\Article;
-use Faker\Provider\ar_EG\Text;
-use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
@@ -17,9 +14,6 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class ArticleResource extends Resource
 {
@@ -34,7 +28,7 @@ class ArticleResource extends Resource
         Section::make()->schema([
           TextInput::make('title')->required()->minLength(2),
           RichEditor::make('body')->required(),
-          Hidden::make('user_id')->dehydrateStateUsing(fn($state) => Auth::id()) // need to get user_id for the record creation so get it from auth
+          Hidden::make('user_id')->dehydrateStateUsing(fn($state) => Auth::id()) // need to get user_id for the record creation so get it from auth when admin creates
         ])
       ]);
   }
@@ -69,10 +63,11 @@ class ArticleResource extends Resource
 
   public static function getPages(): array
   {
+
     return [
       'index' => Pages\ListArticles::route('/'),
       'create' => Pages\CreateArticle::route('/create'),
-      'edit' => Pages\EditArticle::route('/{record}/edit'),
+      'edit' => Pages\EditArticle::route('/{record}/edit')
     ];
   }
 }
