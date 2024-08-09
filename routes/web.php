@@ -7,8 +7,8 @@ use Inertia\Inertia;
 use App\Http\Middleware\CheckArticleOwner;
 use App\Http\Controllers\ArticleController;
 
-Route::get('/api/articles', [ArticleController::class, 'getAll'])->name('api.articles.all');
 Route::get('/api/articles/{record}', [ArticleController::class, 'getOne'])->name('api.articles.one');
+Route::get('/api/articles', [ArticleController::class, 'getAll'])->name('api.articles.all');
 
 Route::get('/', function () {
   return Inertia::render('Welcome', [
@@ -22,6 +22,9 @@ Route::get('/', function () {
 Route::get('/articles', function () {
   return Inertia::render('Articles');
 })->name('articles');
+Route::get('/articles/{record}', function () {
+  return Inertia::render('ArticlePage');
+})->name('article.page');
 
 Route::get('/dashboard', function () {
   return Inertia::render('Dashboard');
