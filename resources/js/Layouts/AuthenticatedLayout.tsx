@@ -5,6 +5,7 @@ import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 import { User } from "@/types";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Authenticated({
     user,
@@ -43,6 +44,8 @@ export default function Authenticated({
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
+                            <ModeToggle />
+
                             <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
