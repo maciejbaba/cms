@@ -12,6 +12,7 @@ cp .env.example .env
 php artisan migrate
 php artisan key:generate
 php artisan db:seed --class=UserSeeder
+php artisan serve
 ```
 
 Go to register route in the top right corner
