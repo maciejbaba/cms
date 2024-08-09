@@ -7,10 +7,8 @@ use Inertia\Inertia;
 use App\Http\Middleware\CheckArticleOwner;
 use App\Http\Controllers\ArticleController;
 
-Route::get('/api/articles', [ArticleController::class, 'getAll'])->name('articles.all');
-Route::get('/api/articles/{record}', [ArticleController::class, 'getOne'])->name('articles.one');
-Route::put('/api/articles/{record}', [ArticleController::class, 'update'])->middleware(CheckArticleOwner::class)->name('articles.update');
-Route::delete('/api/articles/{record}', [ArticleController::class, 'destroy'])->middleware(CheckArticleOwner::class)->name('articles.destroy');
+Route::get('/api/articles', [ArticleController::class, 'getAll'])->name('api.articles.all');
+Route::get('/api/articles/{record}', [ArticleController::class, 'getOne'])->name('api.articles.one');
 
 Route::get('/', function () {
   return Inertia::render('Welcome', [
@@ -21,6 +19,10 @@ Route::get('/', function () {
   ]);
 });
 
+Route::get('/articles', function () {
+  return Inertia::render('Articles');
+})->name('articles');
+
 Route::get('/dashboard', function () {
   return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -30,6 +32,8 @@ Route::middleware('auth')->group(function () {
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
   Route::post('/api/articles', [ArticleController::class, 'create'])->name('api.articles.create');
+  Route::put('/api/articles/{record}', [ArticleController::class, 'update'])->middleware(CheckArticleOwner::class)->name('api.articles.update');
+  Route::delete('/api/articles/{record}', [ArticleController::class, 'destroy'])->middleware(CheckArticleOwner::class)->name('api.articles.destroy');
 });
 
 require __DIR__ . '/auth.php';
