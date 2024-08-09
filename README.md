@@ -15,6 +15,8 @@ php artisan db:seed --class=UserSeeder
 php artisan serve
 ```
 
+Go to http://localhost:8000 in order to use the app
+
 Go to register route in the top right corner
 
 Register as a test user for example:
