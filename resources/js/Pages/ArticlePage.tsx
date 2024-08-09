@@ -10,7 +10,7 @@ export default function ArticlePage({ auth }: PageProps) {
     const link = window.location.href; // hack, should use some kind of router and params
     const linkArr = link.split("/");
     const length = linkArr.length;
-    const articleId = linkArr[length - 1]; // we get last item because at this route it will be the id of article
+    const articleId = linkArr[length - 1]; // we get last item from path because at this route it will be the id of article
 
     useEffect(() => {
         fetch(`/api/articles/${articleId}`)
