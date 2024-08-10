@@ -17,6 +17,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Navigation\NavigationItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -29,6 +30,8 @@ class AdminPanelProvider extends PanelProvider
       ->login()
       ->colors([
         'primary' => Color::Amber,
+      ])->navigationItems([
+        NavigationItem::make('Home')->url('/')->icon('heroicon-o-computer-desktop')->sort(0),
       ])
       ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
       ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

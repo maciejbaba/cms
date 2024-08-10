@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "blade-ui-kit/blade-heroicons": "*",
+        "blade-ui-kit/blade-icons": "*",
         "filament/filament": "^3.2",
         "filament/forms": "^3.2",
         "inertiajs/inertia-laravel": "^1.0",
