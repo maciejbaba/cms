@@ -3,14 +3,24 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
   use HasFactory, Notifiable;
+
+  public function canAccessPanel(Panel $panel): bool
+  {
+    if ($panel->getId() === 'admin') {
+      return str_ends_with($this->email, '@admin.com'); // && $this->hasVerifiedEmail();, need to verify email disable for showing admin panel with unverified email;
+    }
+    return true;
+  }
 
   /**
    * The attributes that are mass assignable.

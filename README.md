@@ -27,8 +27,9 @@ Confirm Password: testtest
 
 Then login in with above credentials
 
-
-
+If you want to have access to http://localhost:8000/admin
+You need to use test@admin.com as an email
+The auth systems checks if the domain is admin.com, additional check if email is verified is disabled for this demo purposes
 
 
 
