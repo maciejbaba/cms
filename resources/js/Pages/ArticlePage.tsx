@@ -4,6 +4,8 @@ import { PageProps } from "@/types";
 import Article from "@/Components/Article";
 import { useEffect, useState } from "react";
 import type { ArticleT } from "@/Components/Article";
+import { buttonVariants } from "@/components/ui/button";
+import { Link } from "@inertiajs/react";
 
 export default function ArticlePage({ auth }: PageProps) {
     const [article, setArticle] = useState<ArticleT>();
@@ -20,6 +22,7 @@ export default function ArticlePage({ auth }: PageProps) {
                 setArticle(data);
             });
     }, []);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -34,6 +37,15 @@ export default function ArticlePage({ auth }: PageProps) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="flex flex-col gap-5 p-6 text-gray-900 dark:text-gray-100">
+                            <Link
+                                href={`/articles/edit/${articleId}`}
+                                className={`${buttonVariants({
+                                    variant: "outline",
+                                })} w-20`}
+                            >
+                                Edit
+                            </Link>
+
                             {article && <Article article={article}></Article>}
                         </div>
                     </div>
