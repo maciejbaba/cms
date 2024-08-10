@@ -24,12 +24,16 @@ Route::get('/', function () {
 Route::get('/articles', function () {
   return Inertia::render('Articles');
 })->name('articles');
+Route::get('/articles/create', function () {
+  return Inertia::render('CreateArticlePage');
+});
 Route::get('/articles/{record}', function () {
   return Inertia::render('ArticlePage');
 })->name('article.page');
 Route::get('/articles/edit/{record}', function () {
   return Inertia::render('EditArticlePage');
 });
+
 
 
 Route::get('/dashboard', function () {

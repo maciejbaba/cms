@@ -1,8 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
-import { useEffect, useState } from "react";
-import type { ArticleT } from "@/Components/Article";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -29,13 +27,13 @@ const formSchema = z.object({
     }),
 });
 
-export function ArticleForm({ article }: { article: ArticleT }) {
+export function ArticleForm() {
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: article.title,
-            body: article.body,
+            title: "",
+            body: "",
         },
     });
 
@@ -49,14 +47,18 @@ export function ArticleForm({ article }: { article: ArticleT }) {
             res.text(),
         );
 
-        fetch(`/api/articles/${article.id}`, {
-            method: "PUT",
+        fetch(`/api/articles`, {
+            method: "POST",
             credentials: "same-origin",
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRF-Token": csrf_token,
             },
-            body: JSON.stringify({ title, body, user_id: article.user_id }),
+            body: JSON.stringify({ title, body }),
+        }).then((res) => {
+            if (res.ok) {
+                window.location.href = "/articles";
+            }
         });
     }
 
@@ -71,7 +73,7 @@ export function ArticleForm({ article }: { article: ArticleT }) {
                             <FormLabel>Title</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="Title of the article..."
+                                    placeholder="Title of article..."
                                     {...field}
                                 />
                             </FormControl>
@@ -90,7 +92,7 @@ export function ArticleForm({ article }: { article: ArticleT }) {
                             <FormLabel>Body</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="Body of the article..."
+                                    placeholder="Body of article..."
                                     {...field}
                                 />
                             </FormControl>
@@ -107,38 +109,22 @@ export function ArticleForm({ article }: { article: ArticleT }) {
     );
 }
 
-export default function EditArticlePage({ auth }: PageProps) {
-    const [article, setArticle] = useState<ArticleT>();
-    const url = window.location.href; // hack, should use some kind of router and params
-    const linkArr = url.split("/");
-    const length = linkArr.length;
-    const articleId = linkArr[length - 1]; // we get last item from path because at this route it will be the id of article
-
-    useEffect(() => {
-        fetch(`/api/articles/${articleId}`)
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setArticle(data);
-            });
-    }, []);
+export default function CreateArticlePage({ auth }: PageProps) {
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    Edit Article
+                    New Article
                 </h2>
             }
         >
-            <Head title="Article" />
+            <Head title="New Article" />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="flex flex-col gap-5 p-6 text-gray-900 dark:text-gray-100">
-                            {article && (
-                                <ArticleForm article={article}></ArticleForm>
-                            )}
+                            <ArticleForm></ArticleForm>
                         </div>
                     </div>
                 </div>
