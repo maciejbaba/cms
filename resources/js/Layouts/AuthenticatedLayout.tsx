@@ -40,6 +40,12 @@ export default function Authenticated({
                                 >
                                     Articles
                                 </NavLink>
+                                <NavLink
+                                    href={"/admin"} // AdminPanelProvider catches route, so we don't need to use route() here
+                                    active={route().current("admin")}
+                                >
+                                    Admin
+                                </NavLink>
                             </div>
                         </div>
 

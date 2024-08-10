@@ -57,6 +57,12 @@ export default function Welcome({
                                         >
                                             Articles
                                         </Link>
+                                        <Link
+                                            href={"/admin"} // AdminPanelProvider catches route, so we don't need to use route() here
+                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                        >
+                                            Admin
+                                        </Link>
                                     </>
                                 ) : (
                                     <>

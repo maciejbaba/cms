@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\CheckArticleOwner;
 use App\Http\Controllers\ArticleController;
+use App\Providers\Filament\AdminPanelProvider;
 
 Route::get('/api/articles/{record}', [ArticleController::class, 'getOne'])->name('api.articles.one');
 Route::get('/api/articles', [ArticleController::class, 'getAll'])->name('api.articles.all');
