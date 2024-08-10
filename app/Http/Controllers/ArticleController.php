@@ -38,6 +38,7 @@ class ArticleController extends Controller
 
   public function update(Request $request)
   {
+    echo "update";
     $article = Article::find($request->route('record'));
     if (!$article) {
       abort(404);

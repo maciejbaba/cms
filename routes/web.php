@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\CheckArticleOwner;
 use App\Http\Controllers\ArticleController;
-use App\Providers\Filament\AdminPanelProvider;
+use Illuminate\Http\Request;
+
 
 Route::get('/api/articles/{record}', [ArticleController::class, 'getOne'])->name('api.articles.one');
 Route::get('/api/articles', [ArticleController::class, 'getAll'])->name('api.articles.all');
@@ -26,6 +27,10 @@ Route::get('/articles', function () {
 Route::get('/articles/{record}', function () {
   return Inertia::render('ArticlePage');
 })->name('article.page');
+Route::get('/articles/edit/{record}', function () {
+  return Inertia::render('EditArticlePage');
+});
+
 
 Route::get('/dashboard', function () {
   return Inertia::render('Dashboard');
@@ -38,6 +43,14 @@ Route::middleware('auth')->group(function () {
   Route::post('/api/articles', [ArticleController::class, 'create'])->name('api.articles.create');
   Route::put('/api/articles/{record}', [ArticleController::class, 'update'])->middleware(CheckArticleOwner::class)->name('api.articles.update');
   Route::delete('/api/articles/{record}', [ArticleController::class, 'destroy'])->middleware(CheckArticleOwner::class)->name('api.articles.destroy');
+  // csrf token for post, put and delete requests to work
+  Route::get('api/csrf-token', function (Request $request) {
+    $token = $request->session()->token();
+
+    $token = csrf_token();
+
+    return $token;
+  });
 });
 
 require __DIR__ . '/auth.php';
