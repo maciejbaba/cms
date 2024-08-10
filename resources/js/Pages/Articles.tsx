@@ -4,18 +4,31 @@ import { PageProps } from "@/types";
 import { useEffect, useState } from "react";
 import { Link } from "@inertiajs/react";
 import Article from "@/Components/Article";
+import { Input } from "@/components/ui/input";
 import type { Articles } from "@/Components/Article";
 
 export default function Articles({ auth }: PageProps) {
+    const [search, setSearch] = useState("");
     const [articles, setArticles] = useState<Articles>([]);
+    const [filteredArticles, setFilteredArticles] = useState<Articles>([]);
     useEffect(() => {
         fetch("/api/articles")
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
                 setArticles(data);
+                setFilteredArticles(data);
             });
     }, []);
+
+    useEffect(() => {
+        const filtered = articles.filter(
+            (article) =>
+                article.title.toLowerCase().includes(search.toLowerCase()) ||
+                article.body.toLowerCase().includes(search.toLowerCase()),
+        );
+        setFilteredArticles(filtered);
+    }, [search]);
 
     return (
         <AuthenticatedLayout
@@ -32,7 +45,13 @@ export default function Articles({ auth }: PageProps) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="flex flex-col gap-5 p-6 text-gray-900 dark:text-gray-100">
-                            {articles.map((article) => (
+                            <Input
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                placeholder="Search for an article..."
+                            />
+
+                            {filteredArticles.map((article) => (
                                 <Link
                                     href={`/articles/${article.id}`}
                                     key={article.id}
