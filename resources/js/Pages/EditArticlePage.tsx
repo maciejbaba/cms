@@ -57,7 +57,7 @@ export function ArticleForm({ article }: { article: ArticleT }) {
                 "Content-Type": "application/json",
                 "X-CSRF-Token": csrf_token,
             },
-            body: JSON.stringify({ title, body }),
+            body: JSON.stringify({ title, body, user_id: article.user_id }),
         });
     }
 

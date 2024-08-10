@@ -19,7 +19,7 @@ class CheckArticleOwner
   {
     $article = Article::find($request->route('record'));
 
-    if (!$article || $article->author_id !== Auth::id()) {
+    if (!$article || $article->user_id !== Auth::id()) {
       abort(403, 'Unauthorized action.');
     }
 
