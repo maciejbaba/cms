@@ -1,5 +1,10 @@
 ## CMS
 
+Backend built with Laravel
+Frontend for admin panel is built with Filament
+Frontend for the app is built with Inertia and React
+
+
 ### To clone and run repo use commands below
 
 ```bash
