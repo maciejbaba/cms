@@ -46,4 +46,4 @@ npm install
 npm start
 ```
 
-Go to http://localhost:3001
+And then go to http://localhost:3001 in order to see the docs
