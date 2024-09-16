@@ -65,5 +65,3 @@ This project demonstrates my ability to:
 4. Provide comprehensive documentation for ease of use and future development
 
 Feel free to explore the repository and reach out if you have any questions or would like to discuss the project in more detail!
-
-[View Project on GitHub](https://github.com/maciejbaba/cms)
